@@ -52,13 +52,7 @@ public class MemoryEntityBuilderTests
         
         Assert.Equal(42, propertyInfo.GetValue(instance));
     }
-    
-    [Fact]
-    public void Should_ThrowTypeLoadException_When_SealedModelGiven()
-    {
-        Assert.Throws<TypeLoadException>(() => this.memoryEntityBuilder.Build<SealedTestModel>());
-    }
-    
+ 
     [Fact]
     public void Should_ThrowInvalidOperationException_When_IdModelGiven()
     {

@@ -78,9 +78,7 @@ public class DbContextExtensionsTests : IClassFixture<NpgsqlDbFixture>
             .Select(arg => arg.outer.StringValue)
             .ToList();
 
-        //Assert.Equal("stringValue3", stringValues[0]);
-
-        Assert.Equal(models.Select(model => model.StringValue), stringValues);
+        Assert.Equal(new[] { "stringValue3", "stringValue1", "stringValue2" }, stringValues);
     }
 
     #endregion

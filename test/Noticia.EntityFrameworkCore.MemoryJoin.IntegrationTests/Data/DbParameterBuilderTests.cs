@@ -19,6 +19,8 @@ public class DbParameterBuilderTests :IClassFixture<NpgsqlDbFixture>
     public DbParameterBuilderTests(NpgsqlDbFixture dbFixture)
     {
         this.testDbContext = dbFixture.TestDbContext;
+        
+        dbFixture.Reset();
     }
     
     #endregion

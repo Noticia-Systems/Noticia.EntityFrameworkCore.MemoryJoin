@@ -48,6 +48,15 @@ public class SqliteDbFixture : IDisposable
     
     #region Methods
     
+    /// <summary>
+    /// Deletes and recreates the database.
+    /// </summary>
+    public void Reset()
+    {
+        this.TestDbContext.Database.EnsureDeleted();
+        this.TestDbContext.Database.EnsureCreated();
+    }
+    
     /// <inheritdoc />
     public void Dispose()
     {

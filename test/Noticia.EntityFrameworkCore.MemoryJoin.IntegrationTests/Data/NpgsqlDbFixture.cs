@@ -8,7 +8,7 @@ namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 /// <summary>
 /// Fixture to automatically inject <see cref="TestDbContext"/>.
 /// </summary>
-public class NpgsqlDbFixture : IDisposable
+public class NpgsqlDbFixture
 {
     #region Properties
     
@@ -47,12 +47,14 @@ public class NpgsqlDbFixture : IDisposable
     #endregion
     
     #region Methods
-    
-    /// <inheritdoc />
-    public void Dispose()
+
+    /// <summary>
+    /// Deletes and recreates the database.
+    /// </summary>
+    public void Reset()
     {
         this.TestDbContext.Database.EnsureDeleted();
-        this.TestDbContext.Dispose();
+        this.TestDbContext.Database.EnsureCreated();
     }
     
     #endregion
