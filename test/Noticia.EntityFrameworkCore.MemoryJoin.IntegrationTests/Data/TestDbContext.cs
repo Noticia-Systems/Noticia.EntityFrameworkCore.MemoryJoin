@@ -2,7 +2,7 @@
 using Noticia.EntityFrameworkCore.MemoryJoin.Extensions;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Models;
 
-namespace Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data;
+namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
 /// <summary>
 /// <see cref="DbContext"/> for unit testing.

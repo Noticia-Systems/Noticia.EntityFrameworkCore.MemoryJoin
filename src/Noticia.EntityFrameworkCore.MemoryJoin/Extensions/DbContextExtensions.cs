@@ -9,10 +9,10 @@ public static class DbContextExtensions
 {
     #region Static Methods
 
-    public static IQueryable<T> FromClient<T>(this DbContext dbContext, IEnumerable<T> data)
+    public static IQueryable<T> AsMemoryEntity<T>(this DbContext dbContext, IEnumerable<T> data)
     {
         return null;
     }
-    
+ 
     #endregion
 }

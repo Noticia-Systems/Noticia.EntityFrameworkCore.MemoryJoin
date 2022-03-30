@@ -3,7 +3,7 @@ using Noticia.EntityFrameworkCore.MemoryJoin.Data;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Models;
 using Xunit;
 
-namespace Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data;
+namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
 public class NpgsqlMemoryEntitySqlBuilderTests : IClassFixture<DbFixture>
 {
@@ -31,7 +31,7 @@ public class NpgsqlMemoryEntitySqlBuilderTests : IClassFixture<DbFixture>
         var connection = this.testDbContext.Database.GetDbConnection();
         using (var command = connection.CreateCommand())
         {
-            var memoryEntitySqlBuilder = new NpgsqlMemoryEntitySqlBuilder<TestModel>(mappings, entities, command);
+            var memoryEntitySqlBuilder = new NpgsqlMemoryEntitySqlQueryBuilder<TestModel>(mappings, entities);
 
             var x = memoryEntitySqlBuilder.Build();
 

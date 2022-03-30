@@ -2,5 +2,20 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=720964cf_002D47f4_002D4da5_002D8473_002Daae475d77a95/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.UnitTest1.Test1&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Reflection.MemoryEntityBuilderTests.Should_InheritProperties_When_NonSealedModelGiven&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Reflection.MemoryEntityBuilderTests.Should_InheritProperties_When_SealedModelGiven&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Reflection.MemoryEntityBuilderTests.Should_ThrowTypeLoadException_When_SealedModelGiven&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Reflection.MemoryEntityBuilderTests.Should_ThrowInvalidOperationException_When_IdModelGiven&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Reflection.MemoryEntityBuilderTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Extensions.ModelBuilderExtensionsTests.Should&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Reflection.MemoryEntityManagerTests.Should_CreateMemoryEntityTypeAndReturnSameTypeEachTime_When_Called&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.NpgsqlMemoryEntitySqlBuilderTests.Should&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::4D312648-0921-4040-93F0-9B3E3C406560::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.NpgsqlMemoryEntitySqlBuilderTests.Should&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.Helper.SqlMappingHelperTests.Should_GetDbType_When_DbTypeCanBeFound&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.Helper.SqlMappingHelperTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.MemoryEntityMappingTests.Should_GetModelProperties_When_GivenModel&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.MemoryEntityMappingTests.Should_GetMemoryEntityProperties_When_GivenValidModel&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.MemoryEntityMappingTests.Should_MapToMemoryEntity_When_ModelGiven&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9790A2E0-4C05-4E10-A2DB-5EEE9B401C77::net6.0::Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data.MemoryEntityMappingTests.Should_MapToModel_When_MemoryEntityGiven&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

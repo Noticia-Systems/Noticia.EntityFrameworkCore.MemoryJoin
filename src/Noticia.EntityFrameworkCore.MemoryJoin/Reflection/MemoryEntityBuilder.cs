@@ -13,11 +13,6 @@ public class MemoryEntityBuilder
     #region Constants
 
     /// <summary>
-    /// Suffix that is applied to the base types name for differentiation.
-    /// </summary>
-    private const string EntitySuffix = "_entity";
-
-    /// <summary>
     /// <see cref="TypeAttributes"/> used to create the dynamic types.
     /// </summary>
     private const TypeAttributes TypeAttributes = System.Reflection.TypeAttributes.Public |
@@ -31,8 +26,8 @@ public class MemoryEntityBuilder
     /// <see cref="MethodAttributes"/> used to create the Id property on the dynamic types.
     /// </summary>
     private const MethodAttributes PropertyMethodAttributes = MethodAttributes.Public |
-                                                        MethodAttributes.SpecialName |
-                                                        MethodAttributes.HideBySig;
+                                                              MethodAttributes.SpecialName |
+                                                              MethodAttributes.HideBySig;
 
     /// <summary>
     /// <see cref="MethodAttributes"/> used to create the dynamic types constructor.
@@ -55,7 +50,8 @@ public class MemoryEntityBuilder
     /// Reflection reference to the <see cref="DatabaseGeneratedAttribute"/> constructor.
     /// </summary>
     private static readonly ConstructorInfo DatabaseGeneratedAttributeConstructor =
-        typeof(DatabaseGeneratedAttribute).GetConstructor(new[] { typeof(DatabaseGeneratedOption) }) ?? throw new InvalidOperationException();
+        typeof(DatabaseGeneratedAttribute).GetConstructor(new[] { typeof(DatabaseGeneratedOption) }) ??
+        throw new InvalidOperationException();
 
     #endregion
 
@@ -100,18 +96,25 @@ public class MemoryEntityBuilder
     /// <exception cref="InvalidOperationException">Thrown whenever the type could not be built successfully and thus returned null.</exception>
     public Type Build<T>()
     {
-        var typeBuilder = this.moduleBuilder.DefineType(typeof(T).Name + EntitySuffix, TypeAttributes, typeof(T));
+        if (typeof(T).GetProperty("Id") is not null)
+        {
+            throw new InvalidOperationException("Model for memory entity generation must not have the property 'Id'.");
+        }
+
+        var typeBuilder = this.moduleBuilder.DefineType(typeof(T).Name + Constants.EntitySuffix, TypeAttributes, typeof(T));
         var fieldBuilder = typeBuilder.DefineField("_Id", typeof(int), FieldAttributes.Private);
         var propertyBuilder = typeBuilder.DefineProperty("Id", PropertyAttributes.HasDefault, typeof(int), null);
 
-        var getMethodBuilder = typeBuilder.DefineMethod("get_Id", PropertyMethodAttributes, typeof(int), Type.EmptyTypes);
+        var getMethodBuilder =
+            typeBuilder.DefineMethod("get_Id", PropertyMethodAttributes, typeof(int), Type.EmptyTypes);
         var getIl = getMethodBuilder.GetILGenerator();
 
         getIl.Emit(OpCodes.Ldarg_0);
         getIl.Emit(OpCodes.Ldfld, fieldBuilder);
         getIl.Emit(OpCodes.Ret);
 
-        var setMethodBuilder = typeBuilder.DefineMethod("set_Id", PropertyMethodAttributes, null, new[] { typeof(int) });
+        var setMethodBuilder =
+            typeBuilder.DefineMethod("set_Id", PropertyMethodAttributes, null, new[] { typeof(int) });
         var setIl = setMethodBuilder.GetILGenerator();
         var modifyLabel = setIl.DefineLabel();
         var exitLabel = setIl.DefineLabel();
@@ -123,10 +126,14 @@ public class MemoryEntityBuilder
         setIl.Emit(OpCodes.Nop);
         setIl.MarkLabel(exitLabel);
         setIl.Emit(OpCodes.Ret);
-        
+
+        propertyBuilder.SetGetMethod(getMethodBuilder);
+        propertyBuilder.SetSetMethod(setMethodBuilder);
+
         var keyAttributeBuilder = new CustomAttributeBuilder(KeyAttributeConstructor, Array.Empty<object>());
-        var databaseGeneratedAttributeBuilder = new CustomAttributeBuilder(DatabaseGeneratedAttributeConstructor, new object[] { DatabaseGeneratedOption.Identity });
-        
+        var databaseGeneratedAttributeBuilder = new CustomAttributeBuilder(DatabaseGeneratedAttributeConstructor,
+            new object[] { DatabaseGeneratedOption.Identity });
+
         propertyBuilder.SetCustomAttribute(keyAttributeBuilder);
         propertyBuilder.SetCustomAttribute(databaseGeneratedAttributeBuilder);
 

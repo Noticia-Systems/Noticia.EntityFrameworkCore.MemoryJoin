@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data;
+namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
 /// <summary>
 /// Fixture to automatically inject <see cref="TestDbContext"/>.
@@ -24,11 +26,19 @@ public class DbFixture : IDisposable
     /// </summary>
     public DbFixture()
     {
+        var configBuilder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddEnvironmentVariables();
+
+        var config = configBuilder.Build();
+        
         var builder = new DbContextOptionsBuilder<TestDbContext>();
+        builder.UseNpgsql(config["Connection"]);
 
-        builder.UseInMemoryDatabase("Noticia.EntityFrameworkCore.MemoryJoin");
-
-        this.TestDbContext = new TestDbContext(builder.Options);
+        var dbContextOptions = builder.Options;
+        
+        this.TestDbContext = new TestDbContext(dbContextOptions);
         
         this.TestDbContext.Database.EnsureDeleted();
         this.TestDbContext.Database.EnsureCreated();
