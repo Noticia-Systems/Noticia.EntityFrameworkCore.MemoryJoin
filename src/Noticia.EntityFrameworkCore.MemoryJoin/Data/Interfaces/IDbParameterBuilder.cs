@@ -2,11 +2,18 @@
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.Data.Interfaces;
 
+/// <summary>
+/// Builds the <see cref="DbParameter"/>s for given models.
+/// </summary>
 public interface IDbParameterBuilder
 {
     #region Methods
 
-    IEnumerable<DbParameter> Build<T>(IEnumerable<T> models);
+    /// <summary>
+    /// Builds the <see cref="DbParameter"/>s for given models.
+    /// </summary>
+    /// <returns><see cref="DbParameter"/>s generated from the models.</returns>
+    IEnumerable<DbParameter> Build();
 
     #endregion
 }

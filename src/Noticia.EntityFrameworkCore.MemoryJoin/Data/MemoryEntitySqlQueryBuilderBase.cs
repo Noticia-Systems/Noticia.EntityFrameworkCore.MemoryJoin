@@ -29,13 +29,13 @@ public abstract class MemoryEntitySqlQueryBuilderBase<T> : IMemoryEntitySqlQuery
     /// Initializes a new instance of the <see cref="MemoryEntitySqlQueryBuilderBase{T}"/> class.
     /// </summary>
     /// <param name="memoryEntityMapping">Mapping used to interchange models and memory entities.</param>
-    /// <param name="models">Models to create memory entities from.</param>
+    /// <param name="memoryEntities">Memory entities to supply to the SQL server.</param>
     /// <exception cref="ArgumentNullException">Thrown when <see cref="memoryEntityMapping"/> is null.</exception>
-    protected MemoryEntitySqlQueryBuilderBase(MemoryEntityMapping<T> memoryEntityMapping, ICollection<T> models)
+    protected MemoryEntitySqlQueryBuilderBase(MemoryEntityMapping<T> memoryEntityMapping, ICollection<object> memoryEntities)
     {
         this.memoryEntityMapping = memoryEntityMapping ?? throw new ArgumentNullException(nameof(memoryEntityMapping));
 
-        this.memoryEntities = models.Select(row => this.memoryEntityMapping.ToFunc(row)).ToList();
+        this.memoryEntities = memoryEntities;
     }
     
     #endregion

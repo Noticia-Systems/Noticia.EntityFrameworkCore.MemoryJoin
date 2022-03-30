@@ -3,16 +3,16 @@
 namespace Noticia.EntityFrameworkCore.MemoryJoin.Data;
 
 /// <summary>
-/// PostgresSQL builder for the memory entities.
+/// MsSQL builder for the memory entities.
 /// </summary>
 /// <typeparam name="T">Model type.</typeparam>
 /// <inheritdoc cref="MemoryEntitySqlQueryBuilderBase{T}"/>
-public class NpgsqlMemoryEntitySqlQueryBuilder<T> : MemoryEntitySqlQueryBuilderBase<T> where T : new()
+public class MsSqlMemoryEntitySqlQueryBuilder<T> : MemoryEntitySqlQueryBuilderBase<T> where T : new()
 {
     #region Constructors
     
     /// <inheritdoc />
-    public NpgsqlMemoryEntitySqlQueryBuilder(MemoryEntityMapping<T> memoryEntityMapping, ICollection<object> memoryEntities) : base(
+    public MsSqlMemoryEntitySqlQueryBuilder(MemoryEntityMapping<T> memoryEntityMapping, ICollection<object> memoryEntities) : base(
         memoryEntityMapping, memoryEntities)
     {
     }

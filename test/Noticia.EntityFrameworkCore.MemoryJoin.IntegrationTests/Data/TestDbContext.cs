@@ -34,4 +34,10 @@ public class TestDbContext : DbContext
     }
 
     #endregion
+    
+    #region Properties
+    
+    public virtual DbSet<JoinableTableModel> JoinableTableModels { get; set; }
+    
+    #endregion
 }

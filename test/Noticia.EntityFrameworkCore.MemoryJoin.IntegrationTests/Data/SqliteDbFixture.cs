@@ -8,7 +8,7 @@ namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 /// <summary>
 /// Fixture to automatically inject <see cref="TestDbContext"/>.
 /// </summary>
-public class DbFixture : IDisposable
+public class SqliteDbFixture : IDisposable
 {
     #region Properties
     
@@ -22,9 +22,9 @@ public class DbFixture : IDisposable
     #region Constructors
     
     /// <summary>
-    /// Initializes a new instance of the <see cref="DbFixture"/> class.
+    /// Initializes a new instance of the <see cref="NpgsqlDbFixture"/> class.
     /// </summary>
-    public DbFixture()
+    public SqliteDbFixture()
     {
         var configBuilder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -34,7 +34,7 @@ public class DbFixture : IDisposable
         var config = configBuilder.Build();
         
         var builder = new DbContextOptionsBuilder<TestDbContext>();
-        builder.UseNpgsql(config["Connection"]);
+        builder.UseSqlite(config["SqliteConnection"]);
 
         var dbContextOptions = builder.Options;
         

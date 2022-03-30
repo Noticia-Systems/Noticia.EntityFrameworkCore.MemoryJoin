@@ -1,4 +1,6 @@
-﻿namespace Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
+﻿using Noticia.EntityFrameworkCore.MemoryJoin.Data;
+
+namespace Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
 
 /// <summary>
 /// Manager class for caching the generated memory entities.
@@ -17,6 +19,11 @@ public static class MemoryEntityManager
     /// </summary>
     private static readonly Dictionary<Type, Type> modelsToMemoryEntities = new Dictionary<Type, Type>();
 
+    /// <summary>
+    /// Dictionary containing assignments of models to their <see cref="MemoryEntityMapping{T}"/>.
+    /// </summary>
+    private static readonly Dictionary<Type, object> modelsToMappings = new Dictionary<Type, object>();
+
     #endregion
 
     #region Static Methods
@@ -34,6 +41,21 @@ public static class MemoryEntityManager
         }
 
         return modelsToMemoryEntities[typeof(T)];
+    }
+
+    /// <summary>
+    /// Gets (and creates) the <see cref="MemoryEntityMapping{T}"/> for a given model type.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static MemoryEntityMapping<T> GetMemoryEntityMapping<T>() where T : new()
+    {
+        if (!modelsToMappings.ContainsKey(typeof(T)))
+        {
+            modelsToMappings.Add(typeof(T), new MemoryEntityMapping<T>());
+        }
+
+        return (MemoryEntityMapping<T>)modelsToMappings[typeof(T)];
     }
 
     #endregion

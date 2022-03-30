@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
-public class NpgsqlMemoryEntitySqlBuilderTests : IClassFixture<NpgsqlDbFixture>
+public class MsSqlMemoryEntitySqlBuilderTests : IClassFixture<MsSqlDbFixture>
 {
     #region Fields
     
@@ -16,7 +16,7 @@ public class NpgsqlMemoryEntitySqlBuilderTests : IClassFixture<NpgsqlDbFixture>
     
     #region Constructors
 
-    public NpgsqlMemoryEntitySqlBuilderTests(NpgsqlDbFixture dbFixture)
+    public MsSqlMemoryEntitySqlBuilderTests(MsSqlDbFixture dbFixture)
     {
         this.testDbContext = dbFixture.TestDbContext;
     }
@@ -38,7 +38,7 @@ public class NpgsqlMemoryEntitySqlBuilderTests : IClassFixture<NpgsqlDbFixture>
         };
 
         var mappings = new MemoryEntityMapping<TestModel>();
-        var memoryEntitySqlBuilder = new NpgsqlMemoryEntitySqlQueryBuilder<TestModel>(mappings, models.Select(model=>mappings.ToFunc(model)).ToList());
+        var memoryEntitySqlBuilder = new MsSqlMemoryEntitySqlQueryBuilder<TestModel>(mappings, models.Select(model=>mappings.ToFunc(model)).ToList());
         var expected = "select * from (values (@memoryEntity_0,@memoryEntity_1,@memoryEntity_2),(@memoryEntity_3,@memoryEntity_4,@memoryEntity_5),(@memoryEntity_6,@memoryEntity_7,@memoryEntity_8),(@memoryEntity_9,@memoryEntity_10,@memoryEntity_11),(@memoryEntity_12,@memoryEntity_13,@memoryEntity_14)) as TestModel_entity(Id,StringValue,IntValue) ";
         
         Assert.Equal(expected, memoryEntitySqlBuilder.Build());
