@@ -1,34 +1,34 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Noticia.EntityFrameworkCore.MemoryJoin.Data;
+using Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data.Fixture;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Models;
 using Xunit;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
-public class DbParameterBuilderTests :IClassFixture<NpgsqlDbFixture>
+[Collection("NpgsqlDbFixture")]
+public class DbParameterBuilderTests : IClassFixture<NpgsqlDbFixture>
 {
     #region Fields
 
-    private readonly TestDbContext testDbContext;
+    private readonly NpgsqlDbFixture dbFixture;
 
     #endregion
-    
+
     #region Constructors
 
     public DbParameterBuilderTests(NpgsqlDbFixture dbFixture)
     {
-        this.testDbContext = dbFixture.TestDbContext;
-        
-        dbFixture.Reset();
+        this.dbFixture = dbFixture;
     }
-    
+
     #endregion
 
     #region Methods
 
     [Fact]
-    public void Should()
+    public void Should_GenerateParameters_When_ValidModelsPassed()
     {
         var expected = new object[]
         {
@@ -38,34 +38,39 @@ public class DbParameterBuilderTests :IClassFixture<NpgsqlDbFixture>
             4, "jkl", 5,
             5, "mno", 85
         };
-        
+
         var models = new[]
         {
-            new TestModel(){StringValue = "abc", IntValue = 23},
-            new TestModel(){StringValue = "def", IntValue = 453},
-            new TestModel(){StringValue = "ghi", IntValue = 476},
-            new TestModel(){StringValue = "jkl", IntValue = 5},
-            new TestModel(){StringValue = "mno", IntValue = 85}
+            new TestModel() { StringValue = "abc", IntValue = 23 },
+            new TestModel() { StringValue = "def", IntValue = 453 },
+            new TestModel() { StringValue = "ghi", IntValue = 476 },
+            new TestModel() { StringValue = "jkl", IntValue = 5 },
+            new TestModel() { StringValue = "mno", IntValue = 85 }
         };
 
-        using (var dbCommand = testDbContext.Database.GetDbConnection().CreateCommand())
+        using (var dbContext = dbFixture.CreateContext())
         {
-              
-            var mappings = new MemoryEntityMapping<TestModel>();
-            var dbParameterBuilder =
-                new DbParameterBuilder<TestModel>(mappings, models.Select(model => mappings.ToFunc(model)).ToList(), dbCommand);
-
-            var dbParameters = dbParameterBuilder.Build();
-            var i = 0;
-            
-            foreach (var dbParameter in dbParameters)
+            using (var dbCommand = dbContext.Database.GetDbConnection().CreateCommand())
             {
-                Assert.Equal(expected[i], dbParameter.Value);
-                
-                i++;
+                var mappings = new MemoryEntityMapping<TestModel>();
+                var dbParameterBuilder =
+                    new DbParameterBuilder<TestModel>(mappings, models.Select(model => mappings.ToFunc(model)).ToList(),
+                        dbCommand);
+
+                var dbParameters = dbParameterBuilder.Build();
+                var i = 0;
+
+                foreach (var dbParameter in dbParameters)
+                {
+                    Assert.Equal(expected[i], dbParameter.Value);
+
+                    i++;
+                }
             }
+
+            dbContext.ChangeTracker.Clear();
         }
     }
-    
+
     #endregion
 }

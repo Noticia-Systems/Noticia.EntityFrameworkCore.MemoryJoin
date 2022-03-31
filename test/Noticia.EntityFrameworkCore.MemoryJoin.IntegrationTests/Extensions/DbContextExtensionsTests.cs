@@ -1,16 +1,18 @@
 ﻿using System.Linq;
 using Noticia.EntityFrameworkCore.MemoryJoin.Extensions;
 using Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
+using Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data.Fixture;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Models;
 using Xunit;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Extensions;
 
+[Collection("NpgsqlDbFixture")]
 public class DbContextExtensionsTests : IClassFixture<NpgsqlDbFixture>
 {
     #region Fields
 
-    private readonly TestDbContext testDbContext;
+    private readonly NpgsqlDbFixture dbFixture;
 
     #endregion
 
@@ -18,7 +20,7 @@ public class DbContextExtensionsTests : IClassFixture<NpgsqlDbFixture>
 
     public DbContextExtensionsTests(NpgsqlDbFixture dbFixture)
     {
-        this.testDbContext = dbFixture.TestDbContext;
+        this.dbFixture = dbFixture;
 
         var joinableTableModels = new[]
         {
@@ -39,8 +41,11 @@ public class DbContextExtensionsTests : IClassFixture<NpgsqlDbFixture>
             }
         };
 
-        this.testDbContext.JoinableTableModels.AddRange(joinableTableModels);
-        this.testDbContext.SaveChanges();
+        using (var dbContext = this.dbFixture.CreateContext())
+        {
+            dbContext.JoinableTableModels.AddRange(joinableTableModels);
+            dbContext.SaveChanges();
+        }
     }
 
     #endregion
@@ -48,7 +53,7 @@ public class DbContextExtensionsTests : IClassFixture<NpgsqlDbFixture>
     #region Methods
 
     [Fact]
-    public void Should()
+    public void Should_JoinTablesCorrectly_When_ModelsUsed()
     {
         var models = new[]
         {
@@ -69,16 +74,45 @@ public class DbContextExtensionsTests : IClassFixture<NpgsqlDbFixture>
             }
         };
 
-        var memoryEntities = testDbContext.AsMemoryEntities(models);
+        using (var dbContext = this.dbFixture.CreateContext())
+        {
+            var memoryEntities = dbContext.AsMemoryEntities(models);
 
-        var stringValues = this.testDbContext.JoinableTableModels
-            .Join(memoryEntities, outer => outer.StringValue, inner => inner.StringValue,
-                (outer, inner) => new { outer, inner })
-            .OrderBy(arg => arg.inner.IntValue)
-            .Select(arg => arg.outer.StringValue)
-            .ToList();
+            var stringValues = dbContext.JoinableTableModels
+                .Join(memoryEntities, outer => outer.StringValue, inner => inner.StringValue,
+                    (outer, inner) => new { outer, inner })
+                .OrderBy(arg => arg.inner.IntValue)
+                .Select(arg => arg.outer.StringValue)
+                .ToList();
 
-        Assert.Equal(new[] { "stringValue3", "stringValue1", "stringValue2" }, stringValues);
+            Assert.Equal(new[] { "stringValue3", "stringValue1", "stringValue2" }, stringValues);
+
+            dbContext.ChangeTracker.Clear();
+        }
+    }
+    
+    [Fact]
+    public void Should_ReturnEmptyCollection_When_NoModelsUsed()
+    {
+        var models = new TestModel[]
+        {
+        };
+
+        using (var dbContext = this.dbFixture.CreateContext())
+        {
+            var memoryEntities = dbContext.AsMemoryEntities(models);
+
+            var stringValues = dbContext.JoinableTableModels
+                .Join(memoryEntities, outer => outer.StringValue, inner => inner.StringValue,
+                    (outer, inner) => new { outer, inner })
+                .OrderBy(arg => arg.inner.IntValue)
+                .Select(arg => arg.outer.StringValue)
+                .ToList();
+
+            Assert.Empty(stringValues);
+                
+            dbContext.ChangeTracker.Clear();
+        }
     }
 
     #endregion

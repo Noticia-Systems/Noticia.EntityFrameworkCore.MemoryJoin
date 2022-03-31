@@ -1,7 +1,6 @@
-﻿using System.Collections.Concurrent;
-using Noticia.EntityFrameworkCore.MemoryJoin.Data;
+﻿using Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
 
-namespace Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
+namespace Noticia.EntityFrameworkCore.MemoryJoin.Data;
 
 /// <summary>
 /// Manager class for caching the generated memory entities.
@@ -11,9 +10,9 @@ public static class MemoryEntityManager
     #region Static Fields
 
     /// <summary>
-    /// <see cref="MemoryEntityBuilder"/> to generate new memory entities.
+    /// <see cref="MemoryEntityTypeBuilder"/> to generate new memory entities.
     /// </summary>
-    private static readonly MemoryEntityBuilder memoryEntityBuilder = new();
+    private static readonly MemoryEntityTypeBuilder MemoryEntityTypeBuilder = new();
 
     /// <summary>
     /// Dictionary containing the models and their assigned memory entities.
@@ -40,7 +39,7 @@ public static class MemoryEntityManager
         {
             if (!modelsToMemoryEntities.ContainsKey(typeof(T)))
             {
-                modelsToMemoryEntities.Add(typeof(T), memoryEntityBuilder.Build<T>());
+                modelsToMemoryEntities.Add(typeof(T), MemoryEntityTypeBuilder.Build<T>());
             }
 
             return modelsToMemoryEntities[typeof(T)];

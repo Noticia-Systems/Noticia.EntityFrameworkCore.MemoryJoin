@@ -6,23 +6,8 @@ using Xunit;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
-public class SqliteMemoryEntitySqlBuilderTests : IClassFixture<SqliteDbFixture>
+public class SqliteMemoryEntitySqlBuilderTests
 {
-    #region Fields
-    
-    private readonly TestDbContext testDbContext;
-    
-    #endregion
-    
-    #region Constructors
-
-    public SqliteMemoryEntitySqlBuilderTests(SqliteDbFixture dbFixture)
-    {
-        this.testDbContext = dbFixture.TestDbContext;
-    }
-    
-    #endregion
-    
     #region Methods
     
     [Fact]

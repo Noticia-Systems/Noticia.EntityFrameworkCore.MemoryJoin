@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Noticia.EntityFrameworkCore.MemoryJoin.Data;
 using Noticia.EntityFrameworkCore.MemoryJoin.Data.Interfaces;
-using Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.Extensions;
 
@@ -13,20 +12,29 @@ public static class DbContextExtensions
 {
     #region Static Fields
 
+    /// <summary>
+    /// Reflection reference to the DbSet FromSqlRaw method.
+    /// </summary>
     private static MethodInfo fromSqlRawMethod = typeof(RelationalQueryableExtensions)
         .GetTypeInfo()
         .GetMethods()
-        .Where(x => x.Name == "FromSqlRaw")
-        .OrderByDescending(x => x.GetParameters().Length)
-        .FirstOrDefault();
+        .Where(methodInfo => methodInfo.Name == "FromSqlRaw")
+        .OrderByDescending(methodInfo => methodInfo.GetParameters().Length)
+        .First();
 
-    private static MethodInfo setMethod = typeof(DbContext).GetMethod("Set", new Type[] { });
+    /// <summary>
+    /// Reflection reference to the DbContext Set method.
+    /// </summary>
+    private static MethodInfo setMethod = typeof(DbContext).GetMethod("Set", new Type[] { }) ?? throw new NullReferenceException();
 
+    /// <summary>
+    /// Reflection reference to the LINQ Select method.
+    /// </summary>
     private static MethodInfo selectMethod = typeof(Queryable)
         .GetTypeInfo()
         .GetMethods()
-        .Where(x => x.Name == "Select")
-        .OrderBy(x => x.GetParameters().Length)
+        .Where(methodInfo => methodInfo.Name == "Select")
+        .OrderBy(methodInfo => methodInfo.GetParameters().Length)
         .First();
 
     #endregion
@@ -71,12 +79,12 @@ public static class DbContextExtensions
 
             var sqlQuery = memoryEntitySqlQueryBuilder.Build();
 
-            var set = setMethod.MakeGenericMethod(memoryEntityType).Invoke(dbContext, Array.Empty<object?>());
+            var set = setMethod.MakeGenericMethod(memoryEntityType).Invoke(dbContext, Array.Empty<object?>()) ?? throw new NullReferenceException();
             var rawSqlResult = fromSqlRawMethod.MakeGenericMethod(memoryEntityType).Invoke(null,
-                new object[] { set, sqlQuery, dbParameterBuilder.Build().ToArray() });
+                new object[] { set, sqlQuery, dbParameterBuilder.Build().ToArray() }) ?? throw new NullReferenceException();
 
             var mappedModels = selectMethod.MakeGenericMethod(memoryEntityType, typeof(T))
-                .Invoke(null, new object[] { rawSqlResult, mappings.FromExpression });
+                .Invoke(null, new object[] { rawSqlResult, mappings.FromExpression }) ?? throw new NullReferenceException();
 
             return (IQueryable<T>)mappedModels;
         }

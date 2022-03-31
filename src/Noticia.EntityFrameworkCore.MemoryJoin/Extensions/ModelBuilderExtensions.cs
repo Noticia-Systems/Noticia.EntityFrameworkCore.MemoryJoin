@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
+using Noticia.EntityFrameworkCore.MemoryJoin.Data;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.Extensions;
 

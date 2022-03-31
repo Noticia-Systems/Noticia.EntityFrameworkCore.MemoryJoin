@@ -1,5 +1,5 @@
 ﻿using System;
-using Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
+using Noticia.EntityFrameworkCore.MemoryJoin.Data;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Data;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Models;
 using Xunit;

@@ -9,7 +9,7 @@ public class MemoryEntityBuilderTests
 {
     #region Fields
 
-    private readonly MemoryEntityBuilder memoryEntityBuilder;
+    private readonly MemoryEntityTypeBuilder memoryEntityTypeBuilder;
 
     #endregion
 
@@ -17,7 +17,7 @@ public class MemoryEntityBuilderTests
 
     public MemoryEntityBuilderTests()
     {
-        this.memoryEntityBuilder = new MemoryEntityBuilder();
+        this.memoryEntityTypeBuilder = new MemoryEntityTypeBuilder();
     }
     
     #endregion
@@ -27,7 +27,7 @@ public class MemoryEntityBuilderTests
     [Fact]
     public void Should_InheritProperties_When_ModelGiven()
     {
-        var type = this.memoryEntityBuilder.Build<TestModel>();
+        var type = this.memoryEntityTypeBuilder.Build<TestModel>();
         
         Assert.NotNull(type.GetProperty("StringValue"));
         Assert.NotNull(type.GetProperty("IntValue"));
@@ -36,7 +36,7 @@ public class MemoryEntityBuilderTests
     [Fact]
     public void Should_AddIdProperty_When_ModelGiven()
     {
-        var type = this.memoryEntityBuilder.Build<TestModel>();
+        var type = this.memoryEntityTypeBuilder.Build<TestModel>();
         
         Assert.NotNull(type.GetProperty("Id"));
     }
@@ -44,7 +44,7 @@ public class MemoryEntityBuilderTests
     [Fact]
     public void Should_SetAndGetIdProperty_When_Called()
     {
-        var type = this.memoryEntityBuilder.Build<TestModel>();
+        var type = this.memoryEntityTypeBuilder.Build<TestModel>();
         var propertyInfo = type.GetProperty("Id") ?? throw new InvalidOperationException("Id property not found.");
         var instance = Activator.CreateInstance(type);
 
@@ -56,7 +56,7 @@ public class MemoryEntityBuilderTests
     [Fact]
     public void Should_ThrowInvalidOperationException_When_IdModelGiven()
     {
-        Assert.Throws<InvalidOperationException>(() => this.memoryEntityBuilder.Build<IdTestModel>());
+        Assert.Throws<InvalidOperationException>(() => this.memoryEntityTypeBuilder.Build<IdTestModel>());
     }
     
     #endregion

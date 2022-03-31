@@ -1,6 +1,4 @@
-﻿using Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
-
-namespace Noticia.EntityFrameworkCore.MemoryJoin.Data;
+﻿namespace Noticia.EntityFrameworkCore.MemoryJoin.Data;
 
 /// <summary>
 /// MsSQL builder for the memory entities.

@@ -6,23 +6,9 @@ using Xunit;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
-public class NpgsqlMemoryEntitySqlBuilderTests : IClassFixture<NpgsqlDbFixture>
+[Collection("NpgsqlDbFixture")]
+public class NpgsqlMemoryEntitySqlBuilderTests
 {
-    #region Fields
-    
-    private readonly TestDbContext testDbContext;
-    
-    #endregion
-    
-    #region Constructors
-
-    public NpgsqlMemoryEntitySqlBuilderTests(NpgsqlDbFixture dbFixture)
-    {
-        this.testDbContext = dbFixture.TestDbContext;
-    }
-    
-    #endregion
-    
     #region Methods
     
     [Fact]

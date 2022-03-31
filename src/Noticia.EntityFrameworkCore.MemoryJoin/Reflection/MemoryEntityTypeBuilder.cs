@@ -6,9 +6,9 @@ using System.Reflection.Emit;
 namespace Noticia.EntityFrameworkCore.MemoryJoin.Reflection;
 
 /// <summary>
-/// The <see cref="MemoryEntityBuilder"/> builds new entities for passing memory values to EFcore for joining.
+/// The <see cref="MemoryEntityTypeBuilder"/> builds new entities for passing memory values to EFcore for joining.
 /// </summary>
-public class MemoryEntityBuilder
+public class MemoryEntityTypeBuilder
 {
     #region Constants
 
@@ -79,9 +79,9 @@ public class MemoryEntityBuilder
     #region Constructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MemoryEntityBuilder"/> class.
+    /// Initializes a new instance of the <see cref="MemoryEntityTypeBuilder"/> class.
     /// </summary>
-    public MemoryEntityBuilder()
+    public MemoryEntityTypeBuilder()
     {
         this.assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
             new AssemblyName("MemoryEntities"),
@@ -92,7 +92,7 @@ public class MemoryEntityBuilder
     }
 
     #endregion
-
+    
     #region Methods
 
     /// <summary>
