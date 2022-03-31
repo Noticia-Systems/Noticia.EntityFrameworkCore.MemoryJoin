@@ -37,7 +37,7 @@ public class TestDbContext : DbContext
     
     #region Properties
     
-    public virtual DbSet<JoinableTableModel> JoinableTableModels { get; set; }
+    public virtual DbSet<JoinableTableModel>? JoinableTableModels { get; set; }
     
     #endregion
 }
