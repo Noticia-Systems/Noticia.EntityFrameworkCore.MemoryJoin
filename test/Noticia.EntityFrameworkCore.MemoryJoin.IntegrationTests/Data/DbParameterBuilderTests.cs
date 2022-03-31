@@ -1,24 +1,23 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Noticia.EntityFrameworkCore.MemoryJoin.Data;
-using Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data.Fixture;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Models;
 using Xunit;
 
 namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
 [Collection("NpgsqlDbFixture")]
-public class DbParameterBuilderTests : IClassFixture<NpgsqlDbFixture>
+public class DbParameterBuilderTests : IClassFixture<DbFixture>
 {
     #region Fields
 
-    private readonly NpgsqlDbFixture dbFixture;
+    private readonly DbFixture dbFixture;
 
     #endregion
 
     #region Constructors
 
-    public DbParameterBuilderTests(NpgsqlDbFixture dbFixture)
+    public DbParameterBuilderTests(DbFixture dbFixture)
     {
         this.dbFixture = dbFixture;
     }
