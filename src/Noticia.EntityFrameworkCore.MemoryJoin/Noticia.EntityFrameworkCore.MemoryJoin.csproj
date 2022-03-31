@@ -4,10 +4,22 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+		<PackageVersion>1.0.0</PackageVersion>
+        <Title>Noticia.EntityFrameworkCore.MemoryJoin</Title>
+        <Authors>Noticia Systems</Authors>
+        <Description>This package allows passing memory data to the EFcore provider which are able to be LINQed by the server without client evaluation.</Description>
+        <Copyright>Noticia Systems</Copyright>
+        <PackageProjectUrl>https://github.com/Noticia-Systems/Noticia.EntityFrameworkCore.MemoryJoin</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Noticia-Systems/Noticia.EntityFrameworkCore.MemoryJoin/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Noticia-Systems/Noticia.EntityFrameworkCore.MemoryJoin</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>entityframeworkcore,c#,aspnetcore,memory,entity,join</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0-preview.2.22153.1" />
+	  <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
