@@ -39,5 +39,5 @@ jobs:
           run: dotnet test --no-build --verbosity normal
           env:
               DatabaseProvider: Postgres
-              ConnectionStrings__Default: Server=localhost;Port=5432;Database=Noticia.EntityFrameworkCore.MemoryJoin;User Id=postgres;Password=postgres;
+              ConnectionStrings__Default: Server=postgres;Port=5432;Database=Noticia.EntityFrameworkCore.MemoryJoin;User Id=postgres;Password=postgres;
          
