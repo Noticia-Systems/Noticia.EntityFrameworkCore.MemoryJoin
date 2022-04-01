@@ -1,4 +1,4 @@
-﻿name: .NET CI Postgres
+﻿name: .NET CI
 on: push
 
 jobs:
