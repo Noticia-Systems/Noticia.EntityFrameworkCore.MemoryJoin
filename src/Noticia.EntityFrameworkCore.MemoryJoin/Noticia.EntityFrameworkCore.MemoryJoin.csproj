@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.1</PackageVersion>
         <Title>Noticia.EntityFrameworkCore.MemoryJoin</Title>
         <Authors>Noticia Systems</Authors>
         <Description>This package allows passing memory data to the EFcore provider which are able to be LINQed by the server without client evaluation.</Description>
@@ -18,7 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0-preview.2.22153.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
 	  <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
