@@ -35,7 +35,7 @@ jobs:
         run: dotnet test --no-build --verbosity normal
         env:
           DatabaseProvider: MSSQL
-          ConnectionStrings__Default: Server=mssql\\MSSQLSERVER01;Database=Noticia.EntityFrameworkCore.MemoryJoin;User Id=sa;Password=AbCd1234$;TrustServerCertificate=True;
+          ConnectionStrings__Default: Server=mssql;Database=Noticia.EntityFrameworkCore.MemoryJoin;User Id=sa;Password=AbCd1234$;TrustServerCertificate=True;
   
   
   
