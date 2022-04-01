@@ -18,7 +18,7 @@ jobs:
       mssql:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
-          ACCEPT_EULA=Y
+          ACCEPT_EULA: Y
           SA_PASSWORD: AbCd1234$
 
     steps:

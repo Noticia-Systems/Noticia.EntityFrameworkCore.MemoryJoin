@@ -25,4 +25,4 @@ jobs:
         run: dotnet test --no-build --verbosity normal
         env:
           DatabaseProvider: SQLite
-          ConnectionStrings__Default: Data Source=:memory:;
+          ConnectionStrings__Default: Data Source=test.db;
