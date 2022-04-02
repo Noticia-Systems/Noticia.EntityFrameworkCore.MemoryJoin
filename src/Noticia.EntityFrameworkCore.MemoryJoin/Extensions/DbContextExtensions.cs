@@ -15,11 +15,13 @@ public static class DbContextExtensions
     /// </summary>
     /// <param name="dbContext">Current <see cref="DbContext"/> to supply memory entities to.</param>
     /// <param name="models">Models to map to memory entities.</param>
+    /// <typeparam name="TDbContext">DbContext type.</typeparam>
     /// <typeparam name="T">Model type.</typeparam>
     /// <returns>Server-side queryable entities for EFcore.</returns>
-    public static IQueryable<T> AsMemoryEntities<T>(this DbContext dbContext, IEnumerable<T> models) where T : new()
+    public static IQueryable<T> AsMemoryEntities<TDbContext, T>(this TDbContext dbContext, IEnumerable<T> models)
+        where TDbContext : DbContext where T : new()
     {
-        return new QueryableModelsBuilder(dbContext).Build(models);
+        return new QueryableModelsBuilder<TDbContext>(dbContext).Build(models);
     }
 
     #endregion

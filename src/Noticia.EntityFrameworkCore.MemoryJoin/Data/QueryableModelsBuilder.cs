@@ -7,7 +7,7 @@ namespace Noticia.EntityFrameworkCore.MemoryJoin.Data;
 /// <summary>
 /// Builds queryable models.
 /// </summary>
-public class QueryableModelsBuilder : IQueryableModelsBuilder
+public class QueryableModelsBuilder<TDbContext> : IQueryableModelsBuilder<TDbContext> where TDbContext : DbContext
 {
     #region Static Fields
 
@@ -42,19 +42,19 @@ public class QueryableModelsBuilder : IQueryableModelsBuilder
     #region Fields
 
     /// <summary>
-    /// <see cref="dbContext"/> used to create the queryable models.
+    /// <see cref="TDbContext"/> used to create the queryable models.
     /// </summary>
-    private readonly DbContext dbContext;
+    private readonly TDbContext dbContext;
 
     #endregion
 
     #region Constructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="QueryableModelsBuilder"/> class.
+    /// Initializes a new instance of the <see cref="QueryableModelsBuilder{TDbContext}"/> class.
     /// </summary>
     /// <param name="dbContext"><see cref="DbContext"/> used to create the queryable models.</param>
-    public QueryableModelsBuilder(DbContext dbContext)
+    public QueryableModelsBuilder(TDbContext dbContext)
     {
         this.dbContext = dbContext;
     }
