@@ -4,10 +4,10 @@ using Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 using Noticia.EntityFrameworkCore.MemoryJoin.UnitTests.Models;
 using Xunit;
 
-namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Extensions;
+namespace Noticia.EntityFrameworkCore.MemoryJoin.IntegrationTests.Data;
 
 [Collection("NpgsqlDbFixture")]
-public class DbContextExtensionsTests : IClassFixture<DbFixture>
+public class QueryableModelsBuilderTests : IClassFixture<DbFixture>
 {
     #region Fields
 
@@ -17,7 +17,7 @@ public class DbContextExtensionsTests : IClassFixture<DbFixture>
 
     #region Constructors
 
-    public DbContextExtensionsTests(DbFixture dbFixture)
+    public QueryableModelsBuilderTests(DbFixture dbFixture)
     {
         this.dbFixture = dbFixture;
 

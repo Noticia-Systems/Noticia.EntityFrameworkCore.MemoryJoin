@@ -30,6 +30,9 @@ For generating the server-known entities you call:
 dbContext.AsMemoryEntities(models);
 ```
 
+For better unit testing `IQueryableModelsBuilder` has been added. The default implementation `QueryableModelsBuilder` may be initialized with a `DbContext` and the `Build` method with the models to be made queryable.
+By using your own implementation of `IQueryableModelsBuilder` unit testing may be simplified since no `DbContext` is required and simple stubs can be returned.
+
 The given reference can be passed to the LINQ join method:
 ```csharp
 .Join(memoryEntities, ...)
